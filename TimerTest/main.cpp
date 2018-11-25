@@ -98,12 +98,16 @@ int main()
 	stTimerQueue.addTimer(TimerEventAudio, 23, true,(void*)iAudioId);
 
 	//距离最近下一次执行还剩多少时间
-	int64_t iTimeRemain = stTimerQueue.getTimeRemaining();
-	while(iTimeRemain>0)
+	int64_t iTimeRemain ;
+	while(1)
 	{
-		Timer::sleep(iTimeRemain);
-		stTimerQueue.handleTimerEvent();
 		iTimeRemain = stTimerQueue.getTimeRemaining();
+		if(iTimeRemain>0)
+		{
+			Timer::sleep(iTimeRemain);
+		}
+		stTimerQueue.handleTimerEvent();
+		
 	}
 
 	//任务执行完成
